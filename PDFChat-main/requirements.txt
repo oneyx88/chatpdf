@@ -49,3 +49,8 @@ openai
 ffprobe
 streamlit_extras
 unstructured
+streamlit
+python-dotenv
+pymupdf
+groq
+
