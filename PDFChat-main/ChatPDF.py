@@ -85,6 +85,11 @@ model_name = st.sidebar.selectbox(
     ["llama3-8b-8192", "gemma2-9b-it"]
 )
 
+# Display existing chat history except for the initial hidden conversation
+for item in st.session_state.history[1:]:
+    with st.chat_message(item["role"]):
+        st.markdown(item["content"])
+
 # PDF file path
 if uploaded_file:
     st.success("File successfully uploaded!")
@@ -93,11 +98,6 @@ if uploaded_file:
     # Initialize the conversation with the initial PDF content if history is empty
     clear_state()
     st.session_state.history.append({"role": "user", "content": initial_text})
-
-    # Display existing chat history except for the initial hidden conversation
-    for item in st.session_state.history[1:]:
-        with st.chat_message(item["role"]):
-            st.markdown(item["content"])
 
     if prompt := st.chat_input("Ask questions about your PDF file:"):
         prompt = prompt.replace('\n', '  \n')
